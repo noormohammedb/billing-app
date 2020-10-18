@@ -7,3 +7,10 @@ body {
   background: #000000d5;
   color: #d4deff;
 }
+.login-button{
+  background: #4661fa;
+}
+.login-button:hover{
+  background: #4661fa96;
+  color: #d3ae5e;
+}
