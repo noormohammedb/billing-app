@@ -3,12 +3,22 @@ const router = express.Router();
 
 const { adminLogin } = require('../db_files/db_operations')
 const { signData } = require('../auth/jwt-create');
+const { verifyData } = require('../auth/jwt-varify');
+
 
 router.get('/', (req, res) => {
    let hbsObject = {
       title: "login-admin"
    }
    res.render('admin-login', hbsObject)
+});
+
+router.get('/dashboard', verifyData, (req, res) => {
+   let hbsObject = {
+      title: "admin-dashbord"
+   }
+   if (req.isVerified) hbsObject.name = req.verification.name
+   res.render('admin-dashbord', hbsObject)
 });
 
 router.get('/admin-login', (req, res) => {
@@ -25,17 +35,18 @@ router.post('/admin-login', async (req, res) => {
    };
    let db_data = await adminLogin(searchData);
    console.log(db_data);
-   let JwtSign = { name: db_data[0].name, id: db_data[0]._id.toString() }
-   console.dir(JwtSign);
-   console.log("  <- sign data");
    // console.log(db_data.length);
    if (!db_data.length) {
       console.log('no data', db_data.length);
       res.status(400).send('no user found')
    } else if (db_data[0].password === searchData.password) {
       console.log('password matched');
-      const token = signData(db_data[0]);
+      let JwtSign = { name: db_data[0].name, id: db_data[0]._id.toString() }
+      // console.dir(JwtSign);
+      // console.log("  <- sign data");
+      const token = signData(JwtSign);
       res.cookie('authorization', `${token}`, { expires: new Date(Date.now() + 3600000), httpOnly: true, encode: String })
+      // res.redirect('/admin/dashboard')
       res.status(200).send(`loged in  ${token} `).end();
    } else {
       console.log('password Missmatch');

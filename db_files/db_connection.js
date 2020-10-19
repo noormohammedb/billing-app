@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV === "development") {
-   console.log("Environment Development Detected!");
+   // console.log("Environment Development Detected!");
    const env = require('dotenv').config('../')
-   console.log(env.parsed);
+   // console.log(env.parsed);
 }
 
 const MongoClient = require('mongodb').MongoClient;
