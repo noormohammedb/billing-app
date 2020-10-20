@@ -28,6 +28,13 @@ router.get('/dashboard', verifyData, (req, res) => {
    res.render('admin-dashbord', hbsObject)
 });
 
+router.get('/add-user', verify, (req, res) => {
+   let hbsObject = {
+      title: 'admin add-user'
+   };
+   res.render('admin-add-user', hbsObject);
+});
+
 router.get('/admin-login', (req, res) => {
    // if not logedin redirected to /
    // res.end('login get');

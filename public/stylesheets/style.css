@@ -17,3 +17,9 @@ body {
 pre{
   color: #2d81b3;
 }
+.gender-grid{
+  display: grid;
+  width: 30%;
+  grid-template-columns: 4rem 3rem;
+  /* grid-template-rows: 2fr 2fr; */
+}
