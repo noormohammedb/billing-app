@@ -5,6 +5,9 @@ const { adminLogin } = require('../db_files/db_operations')
 const { signData } = require('../auth/jwt-create');
 const { verifyData } = require('../auth/jwt-varify');
 
+/* Dummy data for table */
+const userData = require('../dummyData');
+const { verify } = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
    let hbsObject = {
@@ -16,8 +19,12 @@ router.get('/', (req, res) => {
 router.get('/dashboard', verifyData, (req, res) => {
    let hbsObject = {
       title: "admin-dashbord"
+   };
+   if (req.isVerified) {
+      hbsObject.name = req.verification.name;
+      hbsObject.userList = userData
+      console.log(hbsObject);
    }
-   if (req.isVerified) hbsObject.name = req.verification.name
    res.render('admin-dashbord', hbsObject)
 });
 
