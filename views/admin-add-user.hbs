@@ -1,0 +1,74 @@
+{{> admin-navbar}}
+<div class="container">
+   <div class="row">
+      <div class="col-12 mt-5">
+         <h3 class="text-center">Add User</h3>
+
+         <form method="POST" action="/admin/add-user" class="jumbotron bg-dark">
+            <div class="form-group row">
+               <label for="usersname" class="col-sm-4 col-form-label">Name</label>
+               <div class="col-sm-8">
+                  <input type="text" class="form-control" id="usersname" name="name">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="address" class="col-sm-4 col-form-label">address</label>
+               <div class="col-sm-8">
+                  <textarea name="address" class="form-control w-100" id="form-control" rows="4"></textarea>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="join-date" class="col-sm-4 col-form-label">Date Of Join</label>
+               <div class="col-sm-8">
+                  <input type="date" class="form-control" id="join-date" name="join-date">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="age" class="col-sm-4 col-form-label">Age</label>
+               <div class="col-sm-8">
+                  <input type="number" class="form-control" id="age" name="age">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="gender" class="col-sm-4 col-form-label">Gender</label>
+               <div class="col-sm-8 gender-grid">
+                  <label for="male" id="gender">Male</label>
+                  <input type="radio" class="" id="male" name="gender" value="male">
+                  <label for="female" id="gender">Female</label>
+                  <input type="radio" class="" id="female" name="gender" value="female">
+                  <label for="other" id="gender">Others</label>
+                  <input type="radio" class="" id="other" name="gender" value="other">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="phone" class="col-sm-4 col-form-label">Phone Number</label>
+               <div class="col-sm-8">
+                  <input type="tel" class="form-control" id="phone" name="phone">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email" class="col-sm-4 col-form-label">Email</label>
+               <div class="col-sm-8">
+                  <input type="email" class="form-control" id="email" name="email">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="password" class="col-sm-4 col-form-label">Temp. Password</label>
+               <div class="col-sm-8">
+                  <input type="password" class="form-control" id="password" name="password">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="passwordc" class="col-sm-4 col-form-label">Conform Temp. Password</label>
+               <div class="col-sm-8">
+                  <input type="text" class="form-control" id="passwordc">
+               </div>
+            </div>
+            <div class="d-flex justify-content-center">
+               <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+         </form>
+
+      </div>
+   </div>
+</div>
