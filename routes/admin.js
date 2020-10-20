@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { adminLogin } = require('../db_files/db_operations')
 const { signData } = require('../auth/jwt-create');
 const { verifyData } = require('../auth/jwt-varify');
+const { adminLogin, pushUserData } = require('../db_files/db_operations')
 
 /* Dummy data for table */
 const userData = require('../dummyData');
-const { verify } = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
    let hbsObject = {
@@ -28,11 +27,28 @@ router.get('/dashboard', verifyData, (req, res) => {
    res.render('admin-dashbord', hbsObject)
 });
 
-router.get('/add-user', verify, (req, res) => {
+router.get('/add-user', verifyData, (req, res) => {
    let hbsObject = {
       title: 'admin add-user'
    };
-   res.render('admin-add-user', hbsObject);
+   if (req.isVerified) {
+      res.render('admin-add-user', hbsObject);
+   } else {
+      res.end('404 jwt error ')
+   }
+});
+
+router.post('/add-user', verifyData, async (req, res) => {
+   // let hbsObject = {
+   //    title: 'admin add-user'
+   // };
+   // res.render('admin-add-user', hbsObject);
+   if (req.isVerified) {
+      const dbResult = await pushUserData(req.body)
+      console.log(dbResult.insertedId);
+      res.send(dbResult)
+   }
+   // res.send(req.body)
 });
 
 router.get('/admin-login', (req, res) => {

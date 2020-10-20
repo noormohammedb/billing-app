@@ -17,4 +17,11 @@ function adminLogin(sQuery) {
    })
 }
 
-module.exports = { adminLogin }
+async function pushUserData(data) {
+   let db = await connect_db();
+   let pushResult = 'jk';
+   return await db.collection('users').insertOne(data)
+}
+
+
+module.exports = { adminLogin, pushUserData }
