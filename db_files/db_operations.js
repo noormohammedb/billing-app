@@ -23,5 +23,12 @@ async function pushUserData(data) {
    return await db.collection('users').insertOne(data)
 }
 
+async function getUserData() {
+   let db = await connect_db();
+   let data = await db.collection('users').find().toArray();
+   console.log(data);
+   return data;
+   // connect_db().then(console.log)
+}
 
-module.exports = { adminLogin, pushUserData }
+module.exports = { adminLogin, pushUserData, getUserData }

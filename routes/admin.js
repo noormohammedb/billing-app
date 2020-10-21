@@ -3,28 +3,35 @@ const router = express.Router();
 
 const { signData } = require('../auth/jwt-create');
 const { verifyData } = require('../auth/jwt-varify');
-const { adminLogin, pushUserData } = require('../db_files/db_operations')
+const { adminLogin, pushUserData, getUserData } = require('../db_files/db_operations')
 
 /* Dummy data for table */
 const userData = require('../dummyData');
 
-router.get('/', (req, res) => {
+router.get('/', verifyData, (req, res) => {
+   if (req.isVerified) res.redirect('/admin/dashboard')
    let hbsObject = {
       title: "login-admin"
    }
    res.render('admin-login', hbsObject)
 });
 
-router.get('/dashboard', verifyData, (req, res) => {
+router.get('/dashboard', verifyData, async (req, res) => {
    let hbsObject = {
       title: "admin-dashbord"
    };
    if (req.isVerified) {
-      hbsObject.name = req.verification.name;
-      hbsObject.userList = userData
-      console.log(hbsObject);
+
+      let uData = await getUserData();
+      console.log(uData, 'send to client');
+      res.send(uData)
+
+
+      // hbsObject.name = req.verification.name;
+      // hbsObject.userList = userData
+      // console.log(hbsObject);
    }
-   res.render('admin-dashbord', hbsObject)
+   // res.render('admin-dashbord', hbsObject)
 });
 
 router.get('/add-user', verifyData, (req, res) => {
