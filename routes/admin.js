@@ -24,14 +24,14 @@ router.get('/dashboard', verifyData, async (req, res) => {
 
       let uData = await getUserData();
       console.log(uData, 'send to client');
-      res.send(uData)
+      // res.send(uData)
 
 
       // hbsObject.name = req.verification.name;
-      // hbsObject.userList = userData
+      hbsObject.userList = uData
       // console.log(hbsObject);
    }
-   // res.render('admin-dashbord', hbsObject)
+   res.render('admin-dashbord', hbsObject)
 });
 
 router.get('/add-user', verifyData, (req, res) => {
